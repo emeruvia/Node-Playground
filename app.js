@@ -1,2 +1,4 @@
 
-const logger = require('\logger.js');
+const log = require('./logger');
+
+log('message');
