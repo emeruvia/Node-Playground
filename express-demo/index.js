@@ -25,23 +25,11 @@ app.get('/api/posts/:year/:month', (req, res) => {
 });
 
 app.post('/api/courses', (req, res) => {
-  const schema = {
-    name: Joi.string().min(3).required()
-  };
-
-  const result = Joi.validate(req.body, schema);
-
-  if (result.error) {
+  const { error } = validateCourse(req.body);
+  if (error) {
     res.status(400).send(result.error.details[0].message);
     return;
   }
-
-  // // error handling w/o using any packages
-  // if (req.body.name || req.body.name.length < 3) {
-  //   // 400 error, bad request
-  //   res.status(400).send('Name is required and should be minimum of 3 characters.');
-  //   return;
-  // }
 
   const course = {
     id: courses.length + 1,  //id should be assigned by database
@@ -50,6 +38,27 @@ app.post('/api/courses', (req, res) => {
   courses.push(course); // pushes course to courses
   res.send(course); // need to return course object to client
 });
+
+app.put('/api/courses/:id', (req, res) => {
+  const course = courses.find(c => c.id === parseInt(req.params.id));
+  if (!course) res.status(404).send('The course does not exist');
+
+  const { error } = validateCourse(req.body);
+  if (error) {
+    res.status(400).send(result.error.details[0].message);
+    return;
+  }
+
+  course.name = req.body.name;
+  res.send(course);
+});
+
+function validateCourse(course) {
+  const schema = {
+    name: Joi.string().min(3).required()
+  };
+  return Joi.validate(course, schema);
+}
 
 app.get('/api/courses/:id', (req, res) => {
   // checks if the course id is the same as the one in the parameter
