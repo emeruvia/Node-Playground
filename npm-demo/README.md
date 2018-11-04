@@ -4,10 +4,10 @@
 * All packages and dependencies are stored in `node_modules` folders.
 * To install/uninstall packages globally, `-g` flag
 ### Useful npm commands ###
-- npm i <packageName>   // install a package
-- npm i <packageName>@<version> // install a specific version of a package
-- npm i <packageName> --save-dev    // install a package as a dev dependency
-- npm un <packageName>  // uninstall a package
-- npm list --depth=0    // list installed packages
-- npm outdated  // view outdated packages
-- npm updated   // updated packages
+- `npm i [packageName]`   // install a package
+- `npm i [packageName]@[version]` // install a specific version of a package
+- `npm i [packageName]` --save-dev    // install a package as a dev dependency
+- `npm un [packageName]`  // uninstall a package
+- `npm list --depth=0`    // list installed packages
+- `npm outdated` // view outdated packages
+- `npm updated`   // updated packages
